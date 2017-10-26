@@ -4,9 +4,13 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 
-import goods from './components/goods/goods'
-import ratings from './components/ratings/ratings'
-import seller from './components/seller/seller'
+
+
+import goods from 'components/goods/goods'
+import ratings from 'components/ratings/ratings'
+import seller from 'components/seller/seller'
+
+
 /* eslint-disable no-new */
 /*new Vue({
   el: 'body',
@@ -14,7 +18,9 @@ import seller from './components/seller/seller'
 })*/
 
 let app = Vue.extend(App)
-let router = new VueRouter()
+let router = new VueRouter({
+  linkActiveClass:'active'
+})
 router.map({
   '/goods':{
     component:goods
@@ -27,5 +33,5 @@ router.map({
   }
 })
 
-
 router.start(app,'#app')
+router.go('/goods') //打开默认跳转页面

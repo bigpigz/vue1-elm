@@ -7,7 +7,7 @@
       <div class="tab-item"><a v-link="{path:'/seller'}">商家</a></div>
     </div>
     <div class="content">
-      content
+
     </div>
     <router-view></router-view>
   </div>
@@ -24,7 +24,6 @@
 </script>
 
 <style lang="stylus" scoped rel="stylesheet/stylus" type="text/stylus">
-
     .tab
       display: flex
       width: 100%
@@ -33,4 +32,8 @@
       .tab-item
         flex: 1
         text-align: center
+        & > a
+          display: block
+          &.active
+            color:rgb(240,20,20)
 </style>
