@@ -32,8 +32,15 @@
     <div class="detail" v-show="detailShow">
       <div class="detail-wrapper clearfix">
         <div class="detail-main">
-          <p>{{seller.bulletin}}</p>
-          <p>{{seller.bulletin}}</p>
+          <h1 class="name">{{seller.name}}</h1>
+          <div class="star-wrapper">
+            <star :score="seller.score" :size="48"></star>
+          </div>
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">优惠信息</div>
+            <div class="line"></div>
+          </div>
         </div>
       </div>
       <div class="detail-close" @click="detailClose">
@@ -44,6 +51,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import star from 'components/star/star'
   export default{
     data(){
       return {
@@ -65,6 +73,9 @@
       detailClose(){
         this.detailShow = false
       }
+    },
+    components: {
+      star
     }
   }
 </script>
@@ -196,12 +207,34 @@
       background: rgba(7, 17, 27, 0.8)
       .detail-wrapper
         min-height: 100%
+        width: 100%
         .detail-main
           margin-top: 64px
           padding-bottom: 64px
+          .name
+            line-height: 16px
+            text-align: center
+            font-size: 16px
+            font-weight: 700
+          .star-wrapper
+            margin-top: 18px
+            padding: 2px 0
+            text-align: center
+          .title
+            display: flex
+            width: 80%
+            margin: 30px auto 24px auto
+            .line
+              flex: 1
+              position: relative
+              top: -6px
+              border-bottom: 1px solid rgba(255, 255, 255, 0.2)
+            .text
+              padding: 0 12px
+              font-size: 14px
       .detail-close
         position: relative
-        width: 32px;
+        width: 32px
         height: 32px
         margin: -64px auto 0 auto
         clear: both
