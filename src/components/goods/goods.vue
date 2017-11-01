@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <div class="menu-wrapper">
+    <div class="menu-wrapper" v-el:menu-wrapper>
       <ul>
         <li v-for="item in goods" class="menu-item">
           </span>
@@ -11,7 +11,7 @@
         </li>
       </ul>
     </div>
-    <div class="foods-wrapper">
+    <div class="foods-wrapper" v-el:food-wrapper>
       <ul>
         <li v-for="item in goods" class="food-list">
           <h1 class="title">{{item.name}}</h1>
@@ -41,6 +41,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import BScroll from 'better-scroll'
   const ERR_OK = 0
   export default{
     props: {
@@ -59,9 +60,19 @@
         res = res.body
         if (res.errno === ERR_OK) {
           this.goods = res.data
+          this.$nextTick(() => {
+            this._initScroll()
+          })
+
 //          console.log(this.goods);
         }
       })
+    },
+    methods: {
+      _initScroll(){
+        this.menuScroll = new BScroll(this.$els.menuWrapper, {})
+        this.foodsScroll = new BScroll(this.$els.foodWrapper, {})
+      }
     }
 
   }
@@ -138,12 +149,13 @@
             height: 14px
             line-height: 14px
             font-size: 14px
-            color: rgb(7,17,27)
-          .desc,.extra
+            color: rgb(7, 17, 27)
+          .desc, .extra
             font-size: 10px
             line-height: 10px
             color: rgb(147, 153, 159)
           .desc
+            line-height: 12px
             margin-bottom: 8px
           .extra
             &.count
@@ -154,11 +166,9 @@
             .now
               margin-right: 8px
               font-size 14px
-              color:rgb(240,20,20)
+              color: rgb(240, 20, 20)
             .old
               text-decoration line-through
               font-size 10px
               color: rgb(147, 153, 159)
-
-
 </style>
