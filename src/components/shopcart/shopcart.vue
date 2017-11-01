@@ -25,7 +25,7 @@
         type: Array,
         default(){
           return [
-            {price:10,count:1}
+
           ]
         }
       },
