@@ -19,10 +19,30 @@
       <div v-for="ball in balls" v-show="ball.show" transition="drop" class="ball"></div>
       <div class="inner inner-hook"></div>
     </div>
+    <div class="shopcart-list" v-show="listShow">
+      <div class="list-header">
+        <h1 class="title">购物车</h1>
+        <span class="empty">清空</span>
+      </div>
+      <div class="list-content">
+        <ul>
+          <li class="food" v-for="food in selectFoods">
+            <span class="name">{{food.name}}</span>
+            <div class="price">
+              <span>￥{{food.price*food.count}}</span>
+            </div>
+            <div class="cartcontrol-wrapper">
+              <cartcontrol :food="food"></cartcontrol>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import cartcontrol from 'components/cartcontrol/cartcontrol'
   export default{
     data(){
       return {
@@ -99,42 +119,45 @@
       }
     },
     transitions: {
-    /*  drop: {
-        beforeEnter(el){
-          let count = this.balls.length
-          while (count--) {
-            let ball = this.balls[count]
-            if (ball.show) {
-              let rect = ball.el.getBoundingClientRect()
-              let x = rect.left - 32
-              let y = -(window.innerHeight - rect.top - 22)
-              el.style.display = ''
-              el.style.webkitTransform = `translate3d(0,${y}px,0)`
-              el.style.transform = `translate3d(0,${y}px,0)`
-              let inner = el.getElementsByClassName('inner-hook')[0]
-              inner.style.webkitTransform = `translate3d(${x}px,0,0)`
-              inner.style.transform = `translate3d(${x}px,0,0)`
-            }
-          }
-        },
-        enter(el){
-          let rf = el.offsetHeight
-          this.$nextTick(() => {
-            el.style.webkitTransform = 'translate3d(0,0,0)'
-            el.style.transform = 'translate3d(0,0,0)'
-            let inner = el.getElementsByClassName('inner-hook')[0]
-            inner.style.webkitTransform = 'translate3d(0,0,0)'
-            inner.style.transform = 'translate3d(0,0,0)'
-          })
-        },
-        afterEnter(el){
-          let ball = this.dropBalls.shift()
-          if (ball) {
-            ball.show = false
-            el.style.display = 'none'
-          }
-        }
-      }*/
+      /*  drop: {
+       beforeEnter(el){
+       let count = this.balls.length
+       while (count--) {
+       let ball = this.balls[count]
+       if (ball.show) {
+       let rect = ball.el.getBoundingClientRect()
+       let x = rect.left - 32
+       let y = -(window.innerHeight - rect.top - 22)
+       el.style.display = ''
+       el.style.webkitTransform = `translate3d(0,${y}px,0)`
+       el.style.transform = `translate3d(0,${y}px,0)`
+       let inner = el.getElementsByClassName('inner-hook')[0]
+       inner.style.webkitTransform = `translate3d(${x}px,0,0)`
+       inner.style.transform = `translate3d(${x}px,0,0)`
+       }
+       }
+       },
+       enter(el){
+       let rf = el.offsetHeight
+       this.$nextTick(() => {
+       el.style.webkitTransform = 'translate3d(0,0,0)'
+       el.style.transform = 'translate3d(0,0,0)'
+       let inner = el.getElementsByClassName('inner-hook')[0]
+       inner.style.webkitTransform = 'translate3d(0,0,0)'
+       inner.style.transform = 'translate3d(0,0,0)'
+       })
+       },
+       afterEnter(el){
+       let ball = this.dropBalls.shift()
+       if (ball) {
+       ball.show = false
+       el.style.display = 'none'
+       }
+       }
+       }*/
+    },
+    components:{
+      cartcontrol
     }
 
   }
@@ -240,7 +263,7 @@
         bottom 22px
         z-index 200
         &.drop-transition
-          transition all 0.4s cubic-bezier(0.49,-0.29,0.75,0.41)
+          transition all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41)
           .inner
             width: 16px
             height: 16px
