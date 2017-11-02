@@ -42,7 +42,9 @@
         </li>
       </ul>
     </div>
-    <shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
+    <shopcart :select-foods="selectFoods"
+              v-ref:shopcart
+              :delivery-price="seller.deliveryPrice"
               :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
@@ -104,6 +106,11 @@
       }
     },
     methods: {
+      _drop(target){
+        this.$nextTick(() => {
+          this.$refs.shopcart.drop(target)
+        })
+      },
       _initScroll(){
         this.menuScroll = new BScroll(this.$els.menuWrapper, {
           click: true
@@ -138,8 +145,12 @@
     components: {
       Shopcart,
       Cartcontrol
+    },
+    events: {
+      'cart.add'(target){
+        this._drop(target)
+      }
     }
-
   }
 </script>
 
